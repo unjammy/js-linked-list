@@ -88,19 +88,32 @@ function linkedListGenerator(){
   };
 
   var _insert = function(data, position){
+    var toInsert = {};
 
+    if( !(position < size) ){
+      return false;
+    }
+
+    size++;
     var previous = head;
 
     for(var i = 0; i < (position-1) ; i++){
       previous = previous.next;
     }
-    console.log("i found the value of this before the target..." + previous.value);
-    var toInsert = node(data);
-    console.log("im about to insert the value of this..." + toInsert.value);
-    console.log("this is the old thing in my place..." + previous.next.value);
-    toInsert.next = previous.next;
-    previous.next = toInsert;
 
+    if( position === 0 ) {
+      toInsert = head;
+      head = node(data);
+      head.next = toInsert;
+
+    } else {
+      console.log("i found the value of this before the target..." + previous.value);
+      toInsert = node(data);
+      console.log("im about to insert the value of this..." + toInsert.value);
+      console.log("this is the old thing in my place..." + previous.next.value);
+      toInsert.next = previous.next;
+      previous.next = toInsert;
+    }
   };
 
   return {
