@@ -59,12 +59,32 @@ function linkedListGenerator(){
   };
 
   var _remove = function(position){
+
+    if ( !(position < size) ) {
+      return false;
+    }
+
+    size--;
     var previous = head;
+
     for(var i = 0; i < (position-1) ; i++){
       previous = previous.next;
     }
-    var toRemove = previous.next;
-    previous.next = toRemove.next;
+
+    if ( position === 0 ){
+
+      head = head.next;
+
+    } else if ( position === size ){
+
+      tail = previous;
+
+    } else {
+
+      var toRemove = previous.next;
+      previous.next = toRemove.next;
+
+    }
   };
 
   var _insert = function(data, position){
