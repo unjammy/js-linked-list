@@ -47,10 +47,15 @@ function linkedListGenerator(){
 
   var _get = function(position){
     var node = head;
-    for(var i = 0; i < position; i++){
-      node = node.next;
+    if( position >= size ){
+      return false;
+    } else {
+
+      for(var i = 0; i < position; i++){
+       node = node.next;
+      }
+      return node;
     }
-    return node;
   };
 
   var _remove = function(position){
