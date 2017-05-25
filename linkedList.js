@@ -6,11 +6,12 @@
 function linkedListGenerator(){
 
   var node = function(data) {
-    return { 'data': data,
+    return { 'value': data,
               'next': null };
   };
 
   var head = {};
+  var tail = {};
   var size = 0;
 
   var _getHead = function(){
@@ -25,22 +26,22 @@ function linkedListGenerator(){
     if ( size === 0 ){
       return null;
     }
-    else if ( node.next === null ){
-      return node;
-    } else {
-     getTail(node.next);
-   }
+    else {
+      return tail;
+    }
   };
 
   var _add = function(data){
     if(size === 0){
       size++;
       head = node(data);
+      tail = head;
+      return head;
     } else {
       size++;
-      var tail = getTail( head );
       tail.next = node(data);
-      return tail.next;
+      tail = tail.next;
+      return tail;
     }
   };
 
