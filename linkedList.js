@@ -90,7 +90,7 @@ function linkedListGenerator(){
   var _insert = function(data, position){
     var toInsert = {};
 
-    if( !(position < size) ){
+    if( !(position <= size) ){
       return false;
     }
 
