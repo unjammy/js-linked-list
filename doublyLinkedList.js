@@ -109,8 +109,6 @@ function doublyLinkedListGenerator(){
         cursor = cursor.next;
       }
 
-      console.log("i found this one..." + cursor.value);
-
       cursor.prev.next = cursor.next;
 
       cursor.next.prev = cursor.prev;
@@ -121,11 +119,11 @@ function doublyLinkedListGenerator(){
 
   };
 
-  var _insert = function( index, value ){
+  var _insert = function( value, index ){
 
     var toInsert = {};
 
-    if( index >= size || index < 0 ){
+    if( index > size || index < 0 ){
 
       return false;
 
@@ -135,6 +133,7 @@ function doublyLinkedListGenerator(){
       head.prev = toInsert;
       toInsert.next = head;
       head = toInsert;
+      size++;
 
     } else if( index === size ) {
 
@@ -142,12 +141,13 @@ function doublyLinkedListGenerator(){
       tail.next = toInsert;
       toInsert.prev = tail;
       tail = toInsert;
+      size++;
 
     } else {
 
       var cursor = head;
 
-      for(var i = 0; i < index; i++){
+      for(var i = 0; i < (index-1); i++){
         cursor = cursor.next;
       }
 
@@ -156,6 +156,7 @@ function doublyLinkedListGenerator(){
       toInsert.next = cursor.next;
       cursor.next.prev = toInsert;
       cursor.next = toInsert;
+      size++;
 
     }
   };

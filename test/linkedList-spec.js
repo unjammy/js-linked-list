@@ -569,4 +569,76 @@ describe('Doubly Linked List Generator', function() {
     });
   });
 
+describe('`insert` method', function () {
+    var urlList, bookList;
+
+    beforeEach(function () {
+      urlList = doublyLinkedListGenerator();
+      bookList = doublyLinkedListGenerator();
+
+      var urlArr = [
+        'news.ycombinator.com',
+        'icann.org'
+      ];
+
+      var bookArr = [
+        'Neuromancer',
+        'Snow Crash'
+      ];
+
+      urlArr.forEach(function(url) {
+        urlList.add(url);
+      });
+      bookArr.forEach(function(book) {
+        bookList.add(book);
+      });
+    });
+    describe('takes two arguments, a `value` and an `index`', function () {
+      it('should add a new node at a given index', function () {
+        // insert into second position of list
+        urlList.insert('mozilla.org', 1);
+        expect(urlList.get(0).value).to.be.equal('news.ycombinator.com');
+        expect(urlList.get(1).value).to.be.equal('mozilla.org');
+        expect(urlList.get(2).value).to.be.equal('icann.org');
+
+        // insert into beginning of list
+        bookList.insert('Ready Player One', 0);
+        expect(bookList.get(0).value).to.be.equal('Ready Player One');
+        expect(bookList.get(1).value).to.be.equal('Neuromancer');
+        expect(bookList.get(2).value).to.be.equal('Snow Crash');
+
+        urlList.insert('devleague.com', 1);
+        expect(urlList.get(0).value).to.be.equal('news.ycombinator.com');
+        expect(urlList.get(1).value).to.be.equal('devleague.com');
+        expect(urlList.get(2).value).to.be.equal('mozilla.org');
+        expect(urlList.get(3).value).to.be.equal('icann.org');
+
+        // insert into index `1`
+        bookList.insert('The Stranger', 1);
+        expect(bookList.getHead().value).to.be.equal('Ready Player One');
+        expect(bookList.get(0).value).to.be.equal('Ready Player One');
+        expect(bookList.get(1).value).to.be.equal('The Stranger');
+        expect(bookList.get(2).value).to.be.equal('Neuromancer');
+      });
+      it('should return `false` if the index given is a value larger than the List\'s length', function () {
+
+        // urlList has two items, it's max index value is 1
+        expect(urlList.insert('boingboing.net', 3)).to.be.false;
+        expect(urlList.getHead().value).to.be.equal('news.ycombinator.com');
+        expect(urlList.get(0).value).to.be.equal('news.ycombinator.com');
+        expect(urlList.get(1).value).to.be.equal('icann.org');
+        expect(urlList.getTail().value).to.be.equal('icann.org');
+
+        // test -1
+        expect(bookList.insert('The Stranger', -1)).to.be.false;
+        expect(bookList.getHead().value).to.be.equal('Neuromancer');
+        expect(bookList.get(0).value).to.be.equal('Neuromancer');
+        expect(bookList.get(1).value).to.be.equal('Snow Crash');
+        expect(bookList.getTail().value).to.equal('Snow Crash');
+
+      });
+    });
+  });
+
+
 });
