@@ -89,8 +89,9 @@ function linkedListGenerator(){
 
   var _insert = function(data, position){
     var toInsert = {};
-
-    if( !(position <= size) ){
+    console.log("i have a size of..." + size);
+    console.log("you just asked for position..." + position);
+    if( !(position <= size && position >= 0) ){
       return false;
     }
 
@@ -107,10 +108,7 @@ function linkedListGenerator(){
       head.next = toInsert;
 
     } else {
-      console.log("i found the value of this before the target..." + previous.value);
       toInsert = node(data);
-      console.log("im about to insert the value of this..." + toInsert.value);
-      console.log("this is the old thing in my place..." + previous.next.value);
       toInsert.next = previous.next;
       previous.next = toInsert;
     }
