@@ -89,8 +89,6 @@ function linkedListGenerator(){
 
   var _insert = function(data, position){
     var toInsert = {};
-    console.log("i have a size of..." + size);
-    console.log("you just asked for position..." + position);
     if( !(position <= size && position >= 0) ){
       return false;
     }
