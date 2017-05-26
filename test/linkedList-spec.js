@@ -7,9 +7,12 @@ if (!window) {
   var chai = require('chai');
 
   var basicsFile = fs.readFileSync(process.cwd() + '/linkedList.js', { encoding: 'UTF-8' });
+  var intermediateFile = fs.readFileSync(process.cwd() + '/doublyLinkedList.js', { encoding: 'UTF-8' });
 
   // file runs in VM and it's contents has access to GLOBAL
   vm.runInThisContext(basicsFile);
+  vm.runInThisContext(intermediateFile);
+
 }
 
 var expect = chai.expect;
@@ -337,4 +340,108 @@ describe('Linked List Generator', function() {
       });
     });
   });
+});
+
+describe('Doubly Linked List Generator', function() {
+  var sandbox;
+  var newLinkedList = doublyLinkedListGenerator;
+
+  it('should be a function', function () {
+    expect(doublyLinkedListGenerator).to.exist;
+    expect(doublyLinkedListGenerator).to.be.a('function');
+  });
+
+  describe('returns a module object used to interact with the private Doubly Linked List object', function () {
+    beforeEach(function () {
+      newLinkedList = linkedListGenerator();
+    });
+    it('should return a module object', function () {
+      expect(newLinkedList).to.be.an('object');
+    });
+  });
+
+  describe('Module Object has methods available through Doubly Linked List Object', function () {
+    beforeEach(function () {
+      newLinkedList = linkedListGenerator();
+    });
+    it('should have a method named `getHead`', function () {
+      expect(newLinkedList.getHead).to.exist;
+      expect(newLinkedList.getHead).to.be.a('function');
+    });
+    it('should have a method named `getTail`', function () {
+      expect(newLinkedList.getTail).to.exist;
+      expect(newLinkedList.getTail).to.be.a('function');
+    });
+    it('should have a method named `add`', function () {
+      expect(newLinkedList.add).to.exist;
+      expect(newLinkedList.add).to.be.a('function');
+    });
+    it('should have a method named `remove`', function () {
+      expect(newLinkedList.remove).to.exist;
+      expect(newLinkedList.remove).to.be.a('function');
+    });
+    it('should have a method named `get`', function () {
+      expect(newLinkedList.get).to.exist;
+      expect(newLinkedList.get).to.be.a('function');
+    });
+    it('should have a method named `insert`', function () {
+      expect(newLinkedList.insert).to.exist;
+      expect(newLinkedList.insert).to.be.a('function');
+    });
+  });
+
+  describe('`getHead` method', function () {
+
+    var urlList;
+    var bookList;
+
+    beforeEach(function () {
+      urlList = linkedListGenerator();
+      bookList = linkedListGenerator();
+
+      var bookArr = [
+        'Tale Of Two Cities',
+        'Babe: Pig In The City',
+        'Charlottes Web'
+      ];
+
+      bookArr.forEach(function(book){
+        bookList.add(book);
+      });
+
+    });
+    it('should retrieve the value of the first node in a list', function () {
+      expect(urlList.getHead).to.be.a('function');
+      expect(urlList.getHead()).to.be.null;
+      expect(bookList.getHead().value).to.be.equal('Tale Of Two Cities');
+      expect(bookList.getHead().next.value).to.be.equal('Babe: Pig In The City');
+    });
+  });
+
+  describe('`getTail` method', function () {
+    var urlList;
+    var bookList;
+
+    beforeEach(function () {
+      urlList = linkedListGenerator();
+      bookList = linkedListGenerator();
+
+      var bookArr = [
+        'Tale Of Two Cities',
+        'Babe: Pig In The City',
+        'Charlottes Web'
+      ];
+
+      bookArr.forEach(function(book){
+        bookList.add(book);
+      });
+    });
+    it('should retrieve the value of the last node in a list', function () {
+      expect(urlList.getTail).to.be.a('function');
+      expect(urlList.getTail()).to.be.null;
+      expect(bookList.getTail().value).to.be.equal('Charlottes Web');
+      expect(bookList.getTail().prev.value).to.be.equal('Babe: Pig In The City');
+    });
+  });
+
 });
