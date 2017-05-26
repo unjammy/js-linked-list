@@ -353,7 +353,7 @@ describe('Doubly Linked List Generator', function() {
 
   describe('returns a module object used to interact with the private Doubly Linked List object', function () {
     beforeEach(function () {
-      newLinkedList = linkedListGenerator();
+      newLinkedList = doublyLinkedListGenerator();
     });
     it('should return a module object', function () {
       expect(newLinkedList).to.be.an('object');
@@ -362,7 +362,7 @@ describe('Doubly Linked List Generator', function() {
 
   describe('Module Object has methods available through Doubly Linked List Object', function () {
     beforeEach(function () {
-      newLinkedList = linkedListGenerator();
+      newLinkedList = doublyLinkedListGenerator();
     });
     it('should have a method named `getHead`', function () {
       expect(newLinkedList.getHead).to.exist;
@@ -396,8 +396,8 @@ describe('Doubly Linked List Generator', function() {
     var bookList;
 
     beforeEach(function () {
-      urlList = linkedListGenerator();
-      bookList = linkedListGenerator();
+      urlList = doublyLinkedListGenerator();
+      bookList = doublyLinkedListGenerator();
 
       var bookArr = [
         'Tale Of Two Cities',
@@ -423,8 +423,8 @@ describe('Doubly Linked List Generator', function() {
     var bookList;
 
     beforeEach(function () {
-      urlList = linkedListGenerator();
-      bookList = linkedListGenerator();
+      urlList = doublyLinkedListGenerator();
+      bookList = doublyLinkedListGenerator();
 
       var bookArr = [
         'Tale Of Two Cities',
@@ -441,6 +441,64 @@ describe('Doubly Linked List Generator', function() {
       expect(urlList.getTail()).to.be.null;
       expect(bookList.getTail().value).to.be.equal('Charlottes Web');
       expect(bookList.getTail().prev.value).to.be.equal('Babe: Pig In The City');
+    });
+  });
+
+  describe('`get` method', function () {
+    var urlList, bookList;
+
+    beforeEach(function () {
+      urlList = doublyLinkedListGenerator();
+      bookList = doublyLinkedListGenerator();
+
+      var urlArr = [
+        'news.ycombinator.com',
+        'mozilla.org',
+        'eff.org',
+        'icann.org'
+      ];
+
+      var bookArr = [
+        'Ready Player One',
+        '1982',
+        'Neuromancer',
+        'Snow Crash'
+      ];
+
+      urlArr.forEach(function(url) {
+        urlList.add(url);
+      });
+      bookArr.forEach(function(book) {
+        bookList.add(book);
+      });
+    });
+
+    describe('takes an argument', function () {
+      it('should find a node by it\'s index in the Linked List', function () {
+        // urlList Tests
+        expect(urlList.get(0).value).to.equal('news.ycombinator.com');
+        expect(urlList.get(1).value).to.equal('mozilla.org');
+        expect(urlList.get(2).value).to.equal('eff.org');
+        expect(urlList.get(3).value).to.equal('icann.org');
+
+        expect(urlList.getHead().value).to.equal('news.ycombinator.com');
+        expect(urlList.getTail().value).to.equal('icann.org');
+
+        // bookList Tests
+        expect(bookList.get(0).value).to.equal('Ready Player One');
+        expect(bookList.get(1).value).to.equal('1982');
+        expect(bookList.get(2).value).to.equal('Neuromancer');
+        expect(bookList.get(3).value).to.equal('Snow Crash');
+
+        expect(bookList.getHead().value).to.equal('Ready Player One');
+        expect(bookList.getTail().value).to.equal('Snow Crash');
+      });
+      it('should return `false` if no node is found', function () {
+        expect(urlList.get(4)).to.be.false;
+        expect(urlList.get(5)).to.be.false;
+        expect(bookList.get(4)).to.be.false;
+        expect(bookList.get(5)).to.be.false;
+      });
     });
   });
 

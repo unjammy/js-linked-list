@@ -32,17 +32,23 @@ function linkedListGenerator(){
   };
 
   var _add = function(data){
+
     if(size === 0){
+
       size++;
       head = node(data);
       tail = head;
       return head;
+
     } else {
+
       size++;
       tail.next = node(data);
       tail = tail.next;
       return tail;
+
     }
+
   };
 
   var _get = function(position){
