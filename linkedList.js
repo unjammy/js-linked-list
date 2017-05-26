@@ -128,8 +128,9 @@ function doublyLinkedListGenerator(){
 
   var head = {};
   var tail = {};
+  var size = 0;
 
-  function node(value){
+  function _node(value){
     return{
       value: value,
       next: null,
@@ -138,20 +139,49 @@ function doublyLinkedListGenerator(){
   }
 
   var _getHead = function(){
-   return head;
+    if ( size === 0 ){
+      return null;
+    } else {
+      return head;
+    }
   };
 
   var _getTail = function(){
-    return tail;
+    if ( size === 0 ){
+      return null;
+    } else {
+      return tail;
+    }
   };
 
-  var _add = function(){
+  var _add = function( value ){
+    var toAdd = {};
+    if( size === 0 ){
+
+      size++;
+      head = _node( value );
+      tail = head;
+      return head;
+
+    } else {
+
+      size++;
+      toAdd = _node( value );
+      tail.next = toAdd;
+      toAdd.prev = tail;
+      tail = toAdd;
+      return tail;
+
+    }
 
   };
+
+
 
   return {
     getHead: _getHead,
     getTail: _getTail,
+    add: _add
   };
 
 }
