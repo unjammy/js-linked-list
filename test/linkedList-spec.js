@@ -479,6 +479,8 @@ describe('Doubly Linked List Generator', function() {
         expect(urlList.get(0).value).to.equal('news.ycombinator.com');
         expect(urlList.get(1).value).to.equal('mozilla.org');
         expect(urlList.get(2).value).to.equal('eff.org');
+        expect(urlList.get(2).prev.value).to.equal('mozilla.org');
+        expect(urlList.get(2).next.value).to.equal('icann.org');
         expect(urlList.get(3).value).to.equal('icann.org');
 
         expect(urlList.getHead().value).to.equal('news.ycombinator.com');
@@ -488,6 +490,8 @@ describe('Doubly Linked List Generator', function() {
         expect(bookList.get(0).value).to.equal('Ready Player One');
         expect(bookList.get(1).value).to.equal('1982');
         expect(bookList.get(2).value).to.equal('Neuromancer');
+        expect(bookList.get(2).prev.value).to.equal('1982');
+        expect(bookList.get(2).next.value).to.equal('Snow Crash');
         expect(bookList.get(3).value).to.equal('Snow Crash');
 
         expect(bookList.getHead().value).to.equal('Ready Player One');
@@ -498,6 +502,69 @@ describe('Doubly Linked List Generator', function() {
         expect(urlList.get(5)).to.be.false;
         expect(bookList.get(4)).to.be.false;
         expect(bookList.get(5)).to.be.false;
+      });
+    });
+  });
+
+  describe('`remove` method', function () {
+    var urlList, bookList;
+
+    beforeEach(function () {
+      urlList = doublyLinkedListGenerator();
+      bookList = doublyLinkedListGenerator();
+
+      var urlArr = [
+        'news.ycombinator.com',
+        'mozilla.org',
+        'eff.org',
+        'icann.org'
+      ];
+
+      var bookArr = [
+        'Ready Player One',
+        '1982',
+        'Neuromancer',
+        'Snow Crash'
+      ];
+
+      urlArr.forEach(function(url) {
+        urlList.add(url);
+      });
+      bookArr.forEach(function(book) {
+        bookList.add(book);
+      });
+    });
+
+    describe('takes an argument', function () {
+      it('should remove a node by it\'s index in the Linked List', function () {
+        // urlList Tests
+        // remove middle node
+        urlList.remove(2);
+
+        // test new node at position 2
+        expect(urlList.get(2).value).to.equal('icann.org');
+
+        // remove last node
+        urlList.remove(2);
+
+        // retrieve new node at position 2
+        expect(urlList.get(2)).to.be.false;
+        expect(urlList.getHead().value).to.equal('news.ycombinator.com');
+        expect(urlList.getTail().value).to.equal('mozilla.org');
+
+        // bookList Tests
+        //remove first node
+        bookList.remove(0);
+        expect(bookList.get(0).value).to.equal('1982');
+        bookList.remove(1);
+        expect(bookList.getHead().value).to.equal('1982');
+        expect(bookList.getTail().value).to.equal('Snow Crash');
+      });
+      it('should return `false` if a node cannot be found to be removed', function () {
+        expect(urlList.remove(9)).to.be.false;
+        expect(urlList.remove(4)).to.be.false;
+        expect(bookList.remove(4)).to.be.false;
+        expect(bookList.remove(6)).to.be.false;
       });
     });
   });

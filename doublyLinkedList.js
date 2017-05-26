@@ -87,20 +87,34 @@ function doublyLinkedListGenerator(){
 
   var _remove = function( index ) {
 
-    var toRemove = head;
+    var cursor = head;
 
     if( index >= size ){
 
       return false;
 
+    } else if( index === 0 ){
+
+      head = head.next;
+      size--;
+
+    } else if( index === (size-1) ){
+
+      tail = tail.prev;
+      size--;
+
     } else {
 
       for(var i = 0; i < index; i++){
-        toRemove = toRemove.next;
+        cursor = cursor.next;
       }
 
-      toRemove.prev.next = toRemove.next;
-      toRemove.next.prev = toRemove.prev;
+      console.log("i found this one..." + cursor.value);
+
+      cursor.prev.next = cursor.next;
+
+      cursor.next.prev = cursor.prev;
+
       size--;
 
     }
