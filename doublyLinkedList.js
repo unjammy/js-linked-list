@@ -29,7 +29,9 @@ function doublyLinkedListGenerator(){
   };
 
   var _add = function( value ){
+
     var toAdd = {};
+
     if( size === 0 ){
 
       size++;
@@ -51,21 +53,29 @@ function doublyLinkedListGenerator(){
   };
 
   var _get = function(index) {
+
     var ourNode = head;
+
     if( index >= size ){
+
       return false;
+
     } else {
+
       for(var i = 0; i < (index-1); i++){
         ourNode = ourNode.next;
       }
+
     }
+
     return ourNode;
   };
 
   return {
     getHead: _getHead,
     getTail: _getTail,
-    add: _add
+    add: _add,
+    get: _get
   };
 
 }
