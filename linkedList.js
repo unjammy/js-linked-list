@@ -123,3 +123,35 @@ function linkedListGenerator(){
     insert: _insert
   };
 }
+
+function doublyLinkedListGenerator(){
+
+  var head = {};
+  var tail = {};
+
+  function node(value){
+    return{
+      value: value,
+      next: null,
+      prev: null
+    };
+  }
+
+  var _getHead = function(){
+   return head;
+  };
+
+  var _getTail = function(){
+    return tail;
+  };
+
+  var _add = function(){
+
+  };
+
+  return {
+    getHead: _getHead,
+    getTail: _getTail,
+  };
+
+}
