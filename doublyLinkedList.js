@@ -5,27 +5,41 @@ function doublyLinkedListGenerator(){
   var size = 0;
 
   function _node(value){
+
     return{
       value: value,
       next: null,
       prev: null
     };
+
   }
 
   var _getHead = function(){
+
     if ( size === 0 ){
+
       return null;
+
     } else {
+
       return head;
+
     }
+
   };
 
   var _getTail = function(){
+
     if ( size === 0 ){
+
       return null;
+
     } else {
+
       return tail;
+
     }
+
   };
 
   var _add = function( value ){
@@ -71,11 +85,42 @@ function doublyLinkedListGenerator(){
     return ourNode;
   };
 
+  var _remove = function( index ) {
+    var toRemove = head;
+    if( index >= size ){
+      return false;
+    } else {
+      for(var i = 0; i < index; i++){
+        toRemove = toRemove.next;
+      }
+      toRemove.prev.next = toRemove.next;
+      toRemove.next.prev = toRemove.prev;
+      size--;
+    }
+
+  };
+
+  var _insert = function( index, value ){
+    var toInsert = {};
+    if( index >= size || index < 0 ){
+      return false;
+    } else if( index === 0 ) {
+      toInsert = _node( value );
+      head.prev
+    } else if( index === size ) {
+      tail.next =
+    } else {
+
+    }
+  };
+
   return {
     getHead: _getHead,
     getTail: _getTail,
     add: _add,
-    get: _get
+    get: _get,
+    remove: _remove,
+    insert: _insert
   };
 
 }
